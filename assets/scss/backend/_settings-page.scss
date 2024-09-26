@@ -1,0 +1,196 @@
+.ouqw_field_nolabel label {
+    display: none !important;
+}
+
+.ouqw_wrap_settings {
+	display: flex;
+	margin-top: 30px;
+
+    &.submitting {
+        position: relative;
+        cursor: wait;
+        &::before {
+            content: '';
+            position: absolute;
+            width: calc(100% + 20px);
+            height: calc(100% + 20px);
+            z-index: 999;
+            opacity: 0.8;
+            background-color: rgba(0,0,0,0.5);
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+            border-radius: 8px;
+        }
+    }
+
+    .ouqw_g_set_tabcontents {
+        flex: 0 0 60%;
+        padding: 30px;
+        background-color: #fff;
+        border-radius: 7px;
+        box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+        display: flex;
+        flex-flow: column;
+        justify-content: space-between;
+    }
+    .ouqw_g_set_tabs {
+        flex: 0 0 300px;
+        margin: 0;
+        li {
+            margin-bottom: 15px;
+            padding-right: 30px;
+            a {
+                text-decoration: none;
+                padding: 15px 20px;
+                font-size: 15px;
+                color: #464646;
+                display: inline-flex;
+                width: 100%;
+                box-sizing: border-box;
+                transition: all 0.2s linear;
+                outline: unset !important;
+                box-shadow: unset;
+                img {
+                    margin-right: 10px;
+                }
+
+                &.active, &:hover {
+                    box-shadow: 0px 1px 5px rgba(0,0,0,0.2);
+                    border-radius: 8px;
+                    color: #f25a87;
+                    background-color: #fff;
+                }
+            }
+        }
+    }
+
+    .options_group {
+        &:last-child {
+            margin-bottom: 0;
+        }
+        &:not(:last-child) {
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid #f2f0f0;
+        }
+        h3 {
+            margin: 0 0 10px 0;
+        }
+        h4 {
+            margin-bottom: 0;
+        }
+    }
+
+    .ouqw_child_settings {
+        .ouqw_setting_form {
+            margin-right: 15px;
+            width: 100%;
+        }
+    }
+
+    .ouqw_setting_form {
+        &:not(.ouqw_flex_row_reverse) label {
+            margin-bottom: 4px;
+            display: inline-block;
+        }
+        &.remove_label_field label {
+            display: none;
+        }
+    }
+
+    .ouqw_wrapper_rules {
+        padding: 15px;
+        border: 1px solid var(--ouqw-border-color);
+        border-radius: 5px;
+        margin: 10px 0;
+    }
+
+    .ouqw_rules_box {
+        padding: 0;
+        margin: 0 0 15px 0;
+        grid-gap: 20px;
+        align-items: flex-end;
+        position: relative;
+        .option_item {
+            flex: 0 0 40%;
+            max-width: 40%;
+            margin: 0;
+            .ouqw_group_settings_condition {
+                padding: 10px 20px;
+                border: 1px solid var(--ouqw-border-color);
+                border-radius: 5px;
+                margin-top: 10px;
+                background-color: #f4f4f46b;
+            }
+            .form-field {
+                margin: 0;
+            }
+        }
+        .rpt_btn_remove {
+            background-color: #f02440;
+            color: #fff;
+            display: inline-block;
+            width: 30px;
+            height: 30px;
+            border-radius: 5px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+    }
+    .repeater_btn a {
+        text-decoration: none;
+        &:hover {
+            opacity: 0.8;
+        }
+    }
+}
+
+.ouqw_wrap_action_button {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+}
+
+.ouqw_header_settings {
+  	margin-bottom: 50px;
+    .ouqw_title_page {
+        font-weight: 500;
+        font-size: 30px;
+        color: #172a68;
+    }
+    .ouqw_subtitle_page {
+        margin: 10px 0 0 0;
+        opacity: 0.8;
+        font-weight: 500;
+    }
+}
+
+#ouqw_import_export {
+    .options_group {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-bottom: 50px;
+        padding-bottom: 30px;
+        .ouqw_group_option {
+            display: flex;
+            align-items: flex-start;
+            img {
+                margin-right: 30px;
+            }
+            
+        }
+    }
+
+}
+#ouqw-import-form-settings .ouqw_field_wrap {
+    padding: 10px;
+	background-color: #f4f4f4;
+	border-radius: 10px;
+}
+
+body.opal-product_page_ouqw-settings {
+    background-color: #f5f7fa;
+}

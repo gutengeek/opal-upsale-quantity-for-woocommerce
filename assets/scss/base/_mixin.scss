@@ -1,0 +1,126 @@
+:root {
+	--ouqw-primary-color: #172a68;
+	--ouqw-secondary-color: #f25a87;
+	--ouqw-border-color: #cccccc;
+	--ouqw-shadow-color: #36b97e;
+}
+
+$XS:     480px;   
+$SM:     768px;  
+$MD:    1024px;   
+$XL:   1170px;     
+
+// media queries
+
+@mixin responsive($canvas) {
+	@if $canvas == XS {
+		@media only screen and (max-width: $XS) { @content; } 
+	}
+	@else if $canvas == SM {
+		@media only screen and (max-width: $SM) { @content; } 
+	}
+	@else if $canvas == MD {
+		@media only screen and (max-width: $MD) { @content; } 
+	}
+	@else if $canvas == XL {
+		@media only screen and (max-width: $XL) { @content; } 
+	}
+}
+
+
+.ouqw_hidden {
+	display: none !important;
+}
+.ouqw-flex {
+	display: flex;
+}
+.ouqw_flex_row_reverse {
+	display: flex;
+	flex-direction: row-reverse;
+	justify-content: flex-end;
+}
+.ouqw_flex_align_items_center {
+	align-items: center;
+}
+.ouqw_flex_align_items_start {
+	align-items: flex-start;
+}
+.ouqw_flex_align_items_end {
+	align-items: flex-end;
+}
+.ouqw_flex_justify_content_center {
+	justify-content: center;
+}
+.ouqw_flex_justify_content_start {
+	justify-content: flex-start;
+}
+.ouqw_flex_justify_content_end {
+	justify-content: flex-end;
+}
+.mt {
+	margin-top: 30px;
+}
+.mb {
+	margin-bottom: 30px;
+}
+.mt-0 {
+	margin-top: 0;
+}
+.mb-0 {
+	margin-bottom: 0;
+}
+
+.ouqw_hidden_line {
+	display: -webkit-box;
+	-webkit-box-orient: vertical;
+	overflow: hidden;
+}
+
+.ouqw_toggle {
+	cursor: pointer;
+	display: inline-flex;
+	margin: 5px 0;
+	align-items: center;
+	.ouqw_toggle_input {
+		position: absolute;
+		visibility: hidden;
+		box-shadow: none !important;
+		outline: none !important;
+
+		&:checked + .ouqw_toggle_switch {
+			background: var(--ouqw-primary-color);
+
+			&::before {
+				left: 23px;
+			}
+		}
+	}
+	.ouqw_toggle_switch {
+		display: inline-block;
+		background: rgba(10,9,89,.08);
+		border-radius: 16px;
+		width: 46px;
+		height: 26px;
+		position: relative;
+		vertical-align: middle;
+		transition: background .25s;
+		margin-right: 15px;
+
+		&::before {
+			display: block;
+			background: #fff;
+			border: 1px solid rgba(0,0,0,.1);
+			box-sizing: border-box;
+			box-shadow: 0px 0px 4px rgba(0,0,0,.1);
+			border-radius: 50%;
+			width: 20px;
+			height: 20px;
+			position: absolute;
+			top: 50%;
+			transform: translateY(-50%);
+			left: 3px;
+			transition: all .25s ease;
+			content: "";
+		}
+	}
+}

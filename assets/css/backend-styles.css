@@ -1,0 +1,301 @@
+/*-------------------------------------------------------------
+1. Mixin
+--------------------------------------------------------------*/
+:root {
+  --ouqw-primary-color: #172a68;
+  --ouqw-secondary-color: #f25a87;
+  --ouqw-border-color: #cccccc;
+  --ouqw-shadow-color: #36b97e;
+}
+
+.ouqw_hidden {
+  display: none !important;
+}
+
+.ouqw-flex {
+  display: flex;
+}
+
+.ouqw_flex_row_reverse {
+  display: flex;
+  flex-direction: row-reverse;
+  justify-content: flex-end;
+}
+
+.ouqw_flex_align_items_center {
+  align-items: center;
+}
+
+.ouqw_flex_align_items_start {
+  align-items: flex-start;
+}
+
+.ouqw_flex_align_items_end {
+  align-items: flex-end;
+}
+
+.ouqw_flex_justify_content_center {
+  justify-content: center;
+}
+
+.ouqw_flex_justify_content_start {
+  justify-content: flex-start;
+}
+
+.ouqw_flex_justify_content_end {
+  justify-content: flex-end;
+}
+
+.mt {
+  margin-top: 30px;
+}
+
+.mb {
+  margin-bottom: 30px;
+}
+
+.mt-0 {
+  margin-top: 0;
+}
+
+.mb-0 {
+  margin-bottom: 0;
+}
+
+.ouqw_hidden_line {
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.ouqw_toggle {
+  cursor: pointer;
+  display: inline-flex;
+  margin: 5px 0;
+  align-items: center;
+}
+.ouqw_toggle .ouqw_toggle_input {
+  position: absolute;
+  visibility: hidden;
+  box-shadow: none !important;
+  outline: none !important;
+}
+.ouqw_toggle .ouqw_toggle_input:checked + .ouqw_toggle_switch {
+  background: var(--ouqw-primary-color);
+}
+.ouqw_toggle .ouqw_toggle_input:checked + .ouqw_toggle_switch::before {
+  left: 23px;
+}
+.ouqw_toggle .ouqw_toggle_switch {
+  display: inline-block;
+  background: rgba(10, 9, 89, 0.08);
+  border-radius: 16px;
+  width: 46px;
+  height: 26px;
+  position: relative;
+  vertical-align: middle;
+  transition: background 0.25s;
+  margin-right: 15px;
+}
+.ouqw_toggle .ouqw_toggle_switch::before {
+  display: block;
+  background: #fff;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  box-sizing: border-box;
+  box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.1);
+  border-radius: 50%;
+  width: 20px;
+  height: 20px;
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  left: 3px;
+  transition: all 0.25s ease;
+  content: "";
+}
+
+/*-------------------------------------------------------------
+2. Single Settings Tab
+--------------------------------------------------------------*/
+/*-------------------------------------------------------------
+3. Settings Page
+--------------------------------------------------------------*/
+.ouqw_field_nolabel label {
+  display: none !important;
+}
+
+.ouqw_wrap_settings {
+  display: flex;
+  margin-top: 30px;
+}
+.ouqw_wrap_settings.submitting {
+  position: relative;
+  cursor: wait;
+}
+.ouqw_wrap_settings.submitting::before {
+  content: "";
+  position: absolute;
+  width: calc(100% + 20px);
+  height: calc(100% + 20px);
+  z-index: 999;
+  opacity: 0.8;
+  background-color: rgba(0, 0, 0, 0.5);
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  border-radius: 8px;
+}
+.ouqw_wrap_settings .ouqw_g_set_tabcontents {
+  flex: 0 0 60%;
+  padding: 30px;
+  background-color: #fff;
+  border-radius: 7px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+  display: flex;
+  flex-flow: column;
+  justify-content: space-between;
+}
+.ouqw_wrap_settings .ouqw_g_set_tabs {
+  flex: 0 0 300px;
+  margin: 0;
+}
+.ouqw_wrap_settings .ouqw_g_set_tabs li {
+  margin-bottom: 15px;
+  padding-right: 30px;
+}
+.ouqw_wrap_settings .ouqw_g_set_tabs li a {
+  text-decoration: none;
+  padding: 15px 20px;
+  font-size: 15px;
+  color: #464646;
+  display: inline-flex;
+  width: 100%;
+  box-sizing: border-box;
+  transition: all 0.2s linear;
+  outline: unset !important;
+  box-shadow: unset;
+}
+.ouqw_wrap_settings .ouqw_g_set_tabs li a img {
+  margin-right: 10px;
+}
+.ouqw_wrap_settings .ouqw_g_set_tabs li a.active, .ouqw_wrap_settings .ouqw_g_set_tabs li a:hover {
+  box-shadow: 0px 1px 5px rgba(0, 0, 0, 0.2);
+  border-radius: 8px;
+  color: #f25a87;
+  background-color: #fff;
+}
+.ouqw_wrap_settings .options_group:last-child {
+  margin-bottom: 0;
+}
+.ouqw_wrap_settings .options_group:not(:last-child) {
+  margin-bottom: 15px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid #f2f0f0;
+}
+.ouqw_wrap_settings .options_group h3 {
+  margin: 0 0 10px 0;
+}
+.ouqw_wrap_settings .options_group h4 {
+  margin-bottom: 0;
+}
+.ouqw_wrap_settings .ouqw_child_settings .ouqw_setting_form {
+  margin-right: 15px;
+  width: 100%;
+}
+.ouqw_wrap_settings .ouqw_setting_form:not(.ouqw_flex_row_reverse) label {
+  margin-bottom: 4px;
+  display: inline-block;
+}
+.ouqw_wrap_settings .ouqw_setting_form.remove_label_field label {
+  display: none;
+}
+.ouqw_wrap_settings .ouqw_wrapper_rules {
+  padding: 15px;
+  border: 1px solid var(--ouqw-border-color);
+  border-radius: 5px;
+  margin: 10px 0;
+}
+.ouqw_wrap_settings .ouqw_rules_box {
+  padding: 0;
+  margin: 0 0 15px 0;
+  grid-gap: 20px;
+  align-items: flex-end;
+  position: relative;
+}
+.ouqw_wrap_settings .ouqw_rules_box .option_item {
+  flex: 0 0 40%;
+  max-width: 40%;
+  margin: 0;
+}
+.ouqw_wrap_settings .ouqw_rules_box .option_item .ouqw_group_settings_condition {
+  padding: 10px 20px;
+  border: 1px solid var(--ouqw-border-color);
+  border-radius: 5px;
+  margin-top: 10px;
+  background-color: #f4f4f46b;
+}
+.ouqw_wrap_settings .ouqw_rules_box .option_item .form-field {
+  margin: 0;
+}
+.ouqw_wrap_settings .ouqw_rules_box .rpt_btn_remove {
+  background-color: #f02440;
+  color: #fff;
+  display: inline-block;
+  width: 30px;
+  height: 30px;
+  border-radius: 5px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.ouqw_wrap_settings .repeater_btn a {
+  text-decoration: none;
+}
+.ouqw_wrap_settings .repeater_btn a:hover {
+  opacity: 0.8;
+}
+
+.ouqw_wrap_action_button {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.ouqw_header_settings {
+  margin-bottom: 50px;
+}
+.ouqw_header_settings .ouqw_title_page {
+  font-weight: 500;
+  font-size: 30px;
+  color: #172a68;
+}
+.ouqw_header_settings .ouqw_subtitle_page {
+  margin: 10px 0 0 0;
+  opacity: 0.8;
+  font-weight: 500;
+}
+
+#ouqw_import_export .options_group {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 50px;
+  padding-bottom: 30px;
+}
+#ouqw_import_export .options_group .ouqw_group_option {
+  display: flex;
+  align-items: flex-start;
+}
+#ouqw_import_export .options_group .ouqw_group_option img {
+  margin-right: 30px;
+}
+
+#ouqw-import-form-settings .ouqw_field_wrap {
+  padding: 10px;
+  background-color: #f4f4f4;
+  border-radius: 10px;
+}
+
+body.opal-product_page_ouqw-settings {
+  background-color: #f5f7fa;
+}
