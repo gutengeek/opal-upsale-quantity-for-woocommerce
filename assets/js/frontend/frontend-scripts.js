@@ -36,8 +36,6 @@ Frontend related javascript
         $(document).on('change keyup', 'form.cart .ouqw-qty-input', function() {
             var qty = $(this).val() != '' ? parseInt($(this).val()) : 0,
                 discount = 0,
-                tierList = $('.ouqw-badge .ouqw-range-discount'),
-                tierItem = tierList.find('.ouqw-tier-discount'),
                 index = 0,
                 par = $(this).closest('.ouqw_wraper_qty');
 
@@ -67,23 +65,40 @@ Frontend related javascript
                         discount = parseFloat($tier.rule_discount_percent);
 
                         if (ouqw_product.type != 'grouped') {
-                            tierItem.removeClass('actived');
-                            tierItem.eq(index).addClass('actived');
+                            if ($('.tier-line .ouqw-tier-discount').length) {
+                                $('.tier-line .ouqw-tier-discount').removeClass('actived');
+                                $('.tier-line .ouqw-tier-discount.ouqw-tier-'+index).addClass('actived');
+                            }
+                            if ($('.ouqw-table .ouqw-item').length) {
+                                $('.ouqw-table .ouqw-item').removeClass('actived');
+                                $('.ouqw-table .ouqw-item-'+index).addClass('actived');
+                            }
                         }
-
-                        if (par.find('.ouqw-item').length) {
-                            par.find('.ouqw-item').removeClass('actived');
-                            par.find('.ouqw-item-'+index).addClass('actived');
+                        else {
+                            if (par.find('.ouqw-table .ouqw-item').length) {
+                                par.find('.ouqw-table .ouqw-item').removeClass('actived');
+                                par.find('.ouqw-table .ouqw-item-'+index).addClass('actived');
+                            }
                         }
                     }
+
                     index++;
                 }
             });
 
             if (discount === 0) {
-                tierItem.removeClass('actived');
-                if (par.find('.ouqw-item').length) {
-                    par.find('.ouqw-item').removeClass('actived');
+                if (ouqw_product.type != 'grouped') {
+                    if ($('.tier-line .ouqw-tier-discount').length) {
+                        $('.tier-line .ouqw-tier-discount').removeClass('actived');
+                    }
+                    if ($('.ouqw-table .ouqw-item').length) {
+                        $('.ouqw-table .ouqw-item').removeClass('actived');
+                    }
+                }
+                else {
+                    if (par.find('.ouqw-table .ouqw-item').length) {
+                        par.find('.ouqw-table .ouqw-item').removeClass('actived');
+                    }
                 }
             }
 
@@ -129,9 +144,9 @@ Frontend related javascript
             // console.log(ouqw_product);
             // console.log(ouqw_tiers);
 
-            if (ouqw_tiers.product_render_type == 'badge') {
+            // if (ouqw_tiers.product_render_type == 'badge') {
                 eventChangeQtyBadge();
-            }
+            // }
         }
 
         if ($('.ouqw_wraper_qty .tier-value').length) {
@@ -161,14 +176,28 @@ Frontend related javascript
             });
         }
 
-        if ($('.ouqw_wraper_qty .ouqw-item').length) {
-            $('.ouqw_wraper_qty .ouqw-item').on('click touch', function(e) {
+        if ($('.ouqw-table .ouqw-item, .tier-line .ouqw-tier-discount').length) {
+            $('.ouqw-table .ouqw-item, .tier-line .ouqw-tier-discount').on('click touch', function(e) {
                 e.preventDefault();
+
+                if (ouqw_product.type == 'grouped' && !$(this).closest('.ouqw_wraper_qty').length) {
+                    return false;
+                }
+
                 var qty = $(this).data('qty'),
                     discount_percent = $(this).data('discount_percent'),
                     par = $(this).closest('.ouqw_wraper_qty');
-                
-                par.find('.ouqw-qty-input').val(qty).change();
+                    
+                if (ouqw_product.type == 'grouped') {
+                    if (par.length) {
+                        par.find('.ouqw-qty-input').val(qty).change();
+                    }
+                }
+                else {
+                    $('form.cart .ouqw-qty-input').val(qty).change();
+                }
+
+                if (par.length) par.find('.tier-table').slideUp();
 
                 $(document.body).trigger('ouqw_tier_item_selected', [$(this)]);
             })
@@ -185,8 +214,10 @@ Frontend related javascript
         var pid = $(e['target']).closest('.variations_form').data('product_id'),
             vid = v.variation_id,
             vprice = parseFloat(v.display_price);
-        if ($('.ouqw_wraper_qty .ouqw-item').length) {
-            $('.ouqw_wraper_qty .ouqw-item').each(function() {
+        
+        var tierItem = (ouqw_product.type == 'grouped') ? $('.ouqw_wraper_qty .ouqw-item') : $('.tier-table .ouqw-item');
+        if (tierItem.length) {
+            tierItem.each(function() {
                 var discount_percent = parseFloat($(this).data('discount_percent')),
                     discount_price = ouqw_price_format(vprice - (vprice * discount_percent / 100));
                 $(this).find('.ouqw-item-price-val').html(discount_price);

@@ -3,7 +3,7 @@ Contributors: khanhhv2240
 Tags: addon, woocommerce, upsale, buymore, savemore
 Requires at least: 5.0
 Tested up to: 6.6.2
-Stable tag: 1.0.1
+Stable tag: 1.1.2
 Requires PHP: 5.4
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/old-licenses/gpl-2.0.html
@@ -12,6 +12,8 @@ A WooCommerce addon plugin for WordPress that enables bulk discount settings, al
 
 == Description ==
 ##Buy more, Save more
+
+[Free Support](https://wpopal.com/contact/)  | [Github Repository](https://github.com/gutengeek/opal-upsale-quantity-for-woocommerce)
 
 The **Opal Upsale Quantity for WooCommerce** plugin for WordPress is a powerful tool designed to incentivize customers to purchase in larger quantities by offering progressive discounts. With this plugin, store owners can easily set up discount tiers based on the quantity of items a customer adds to their cart. The more products a customer buys, the higher the discount they receive. This feature is particularly useful for boosting sales and encouraging bulk purchases, making it a valuable addition to any WooCommerce store looking to increase average order value and improve customer satisfaction. The plugin is easy to configure, flexible, and integrates seamlessly with existing WooCommerce functionalities.
 
@@ -53,6 +55,9 @@ Of course! You can attach the rule to one or more product categories, or simply 
 6. Display sale off in Order
 
 == Changelog ==
+= 1.1.2 - Update plugin: =
+* Add style: Tier table
+
 = 1.0.1 - Fix bugs: Reviews bugs =
 
 = 1.0.0 - Released: Aug 30, 2024 =

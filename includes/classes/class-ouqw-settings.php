@@ -118,9 +118,10 @@ class OUQW_Settings{
 
 	public function ouqw_get_settings_default() {
 		$settings = [
-			'product_render_type' => 'badge',
-			'product_render_position' => '',
+			'product_render_position' => 'woocommerce_single_product_summary-30',
 			'render_position_prioty' => '',
+			'product_render_type' => 'tier-line',
+			'show_badge' => 1,
 			'custom_quantity_input' => 1,
 			'show_in_cart_item' => 1,
 			'show_in_cart_total' => 0,

@@ -4,13 +4,13 @@
  *
  * @package       opal-upsale-quantity-for-woocommerce
  * @author        WPOPAL
- * @version       1.0.1
+ * @version       1.1.2
  *
  * @wordpress-plugin
  * Plugin Name:   Opal Upsale Quantity for Woocommerce
  * Plugin URI:    https://wpopal.com/contact/
  * Description:   Our plugin ensures that your customers receive accurate delivery estimates every time.
- * Version:       1.0.1
+ * Version:       1.1.2
  * Author:        WPOPAL
  * Author URI:    https://wpopal.com
  * License:       GPLv2 or later
@@ -28,7 +28,7 @@ define( 'OUQW_NAME', 'Opal Upsale Quantity for Woocommerce' );
 define( 'OUQW_TEXTDOMAIN', 'opal-upsale-quantity-for-woocommerce' );
 
 // Plugin version
-define( 'OUQW_VERSION', '1.0.1' );
+define( 'OUQW_VERSION', '1.1.2' );
 
 // Plugin Root File
 define( 'OUQW_PLUGIN_FILE', __FILE__ );
@@ -56,7 +56,7 @@ require_once OUQW_PLUGIN_DIR . 'includes/class-opal-upsale-quantity-for-woocomme
  * of our master class.
  *
  * @author  WPOPAL
- * @since   1.0.1
+ * @since   1.1.2
  * @return  object|OUQW_Start_Instance
  */
 function ouqw() {

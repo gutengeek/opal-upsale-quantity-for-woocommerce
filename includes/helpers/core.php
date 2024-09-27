@@ -342,3 +342,27 @@ if (!function_exists('ouqw_print_price')) {
         remove_filter('esc_html', 'ouqw_prevent_escape_html', 99, 2);
     }
 }
+
+if (!function_exists('ouqw_wrapper_open_upsale_view')) {
+    /**
+     * ouqw_wrapper_open_upsale_view 
+     * 
+     */
+    function ouqw_wrapper_open_upsale_view($settings_data){
+        ?>
+        <div class="ouqw-upsale">
+        <?php
+    }
+}
+
+if (!function_exists('ouqw_wrapper_close_upsale_view')) {
+    /**
+     * ouqw_wrapper_close_upsale_view 
+     * 
+     */
+    function ouqw_wrapper_close_upsale_view($settings_data){
+        ?>
+        </div>
+        <?php
+    }
+}

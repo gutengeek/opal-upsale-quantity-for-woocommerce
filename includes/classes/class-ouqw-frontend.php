@@ -79,6 +79,8 @@ if ( ! class_exists( 'OUQW_Frontend' ) ) :
                 add_action( 'woocommerce_before_add_to_cart_quantity', [$this, 'custom_qty'], 100 );
                 add_action( 'woocommerce_after_add_to_cart_quantity', [$this, 'after_custom_qty'], 1 );
             }
+            
+            // add_action( 'woocommerce_after_add_to_cart_quantity', [$this, 'after_custom_qty'], 1 );
         }
         
         /**
@@ -141,16 +143,39 @@ if ( ! class_exists( 'OUQW_Frontend' ) ) :
                 ], $this->settings_data ) );
             }
 
+            $product = wc_get_product($product_id);
+            if ( $product->is_type( 'variable' ) ) {
+                $product = new WC_Product_Variable($product_id);
+                $raw_price = $product->get_variation_price();
+            }   
+            else {
+                $raw_price = $product->get_price();
+            }
+
+
+            /**
+             * Functions hooked in to ouqw_before_upsale_discount_shortcode action
+             *
+             * @see ouqw_wrapper_open_upsale_view - 10
+             *
+             */
             do_action('ouqw_before_upsale_discount_shortcode', $this->settings_data);
 
             self::view($product_render_type, [
+                'raw_price' => $raw_price,
                 'range_data' => $range_data,
                 'discount_type_text' => $discount_type_text,
-                'badge_title' => ouqw_get_option('badge_title', '', $this->settings_data),
-                'badge_text' => ouqw_get_option('badge_text', '', $this->settings_data),
+                'product_type' => $product->get_type(),
+                'show' => true
             ]);
 
-            do_action('ouqw_before_upsale_discount_shortcode', $this->settings_data);
+            /**
+             * Functions hooked in to ouqw_after_upsale_discount_shortcode action
+             *
+             * @see ouqw_wrapper_close_upsale_view - 10
+             *
+             */
+            do_action('ouqw_after_upsale_discount_shortcode', $this->settings_data);
 
         }
 
@@ -164,7 +189,8 @@ if ( ! class_exists( 'OUQW_Frontend' ) ) :
                 return;
             }
             
-            $product_render_type = ouqw_get_option('product_render_type', 'badge', $this->settings_data);
+            $product_render_type = ouqw_get_option('product_render_type', 'tier-line', $this->settings_data);
+            $show_badge = ouqw_get_option('show_badge', false, $this->settings_data);
             $discount_type = ouqw_get_option('discount_type', 'product_items', $this->settings_data);
 
             switch ($discount_type) {
@@ -182,16 +208,43 @@ if ( ! class_exists( 'OUQW_Frontend' ) ) :
                 'product_render_type' => $product_render_type,
             ], $this->settings_data ) );
 
+            /**
+             * Functions hooked in to ouqw_before_upsale_discount_view action
+             *
+             * @see ouqw_wrapper_open_upsale_view - 10
+             *
+             */
             do_action('ouqw_before_upsale_discount_view', $this->settings_data);
+
+            if ($show_badge) {
+                self::view('badge', [
+                    'badge_title' => ouqw_get_option('badge_title', '', $this->settings_data),
+                    'badge_text' => ouqw_get_option('badge_text', '', $this->settings_data),
+                ]);
+            }
+
+            if ( $product->is_type( 'variable' ) ) {
+                $raw_price = $product->get_variation_price();
+            }   
+            else {
+                $raw_price = $product->get_price();
+            }
 
             self::view($product_render_type, [
+                'raw_price' => $raw_price,
                 'range_data' => $range_data,
                 'discount_type_text' => $discount_type_text,
-                'badge_title' => ouqw_get_option('badge_title', '', $this->settings_data),
-                'badge_text' => ouqw_get_option('badge_text', '', $this->settings_data),
+                'product_type' => $product->get_type(),
+                'show' => true
             ]);
 
-            do_action('ouqw_before_upsale_discount_view', $this->settings_data);
+            /**
+             * Functions hooked in to ouqw_after_upsale_discount_view action
+             *
+             * @see ouqw_wrapper_close_upsale_view - 10
+             *
+             */
+            do_action('ouqw_after_upsale_discount_view', $this->settings_data);
         }
 
         private function handle_render_hook_product() {
@@ -498,6 +551,11 @@ if ( ! class_exists( 'OUQW_Frontend' ) ) :
         public function before_custom_qty() {
             global $product;
             if (!$this->is_enable($product->get_id())) return;
+            $range_data = ouqw_get_option('rules_range', false, $this->settings_data);
+            $range_data = self::check_range_data($range_data);
+            if (!$range_data) {
+                return;
+            }
             ?>
             <div class="ouqw_wraper_qty">
             <?php
@@ -506,7 +564,12 @@ if ( ! class_exists( 'OUQW_Frontend' ) ) :
         public function after_custom_qty() {
             global $product;
             if (!$this->is_enable($product->get_id())) return;
-            
+            $range_data = ouqw_get_option('rules_range', false, $this->settings_data);
+            $range_data = self::check_range_data($range_data);
+            if (!$range_data) {
+                return;
+            }
+
             $custom = __('Custom quantities', 'opal-upsale-quantity-for-woocommerce');
             $standard = __('Standard quantities', 'opal-upsale-quantity-for-woocommerce');
             ?>
@@ -525,7 +588,7 @@ if ( ! class_exists( 'OUQW_Frontend' ) ) :
                 return;
             }
             
-            $product_render_type = ouqw_get_option('product_render_type', 'badge', $this->settings_data);
+            $product_render_type = ouqw_get_option('product_render_type', 'tier-line', $this->settings_data);
             $discount_type = ouqw_get_option('discount_type', 'product_items', $this->settings_data);
 
             switch ($discount_type) {
@@ -558,14 +621,10 @@ if ( ! class_exists( 'OUQW_Frontend' ) ) :
                 'raw_price' => $raw_price,
                 'range_data' => $range_data,
                 'discount_type_text' => $discount_type_text,
-                'badge_title' => ouqw_get_option('badge_title', '', $this->settings_data),
-                'badge_text' => ouqw_get_option('badge_text', '', $this->settings_data),
+                'product_type' => $product->get_type(),
             ]);
 
             do_action('ouqw_before_custom_qty', $this->settings_data);
-            ?>
-            
-            <?php
 
         }
     }

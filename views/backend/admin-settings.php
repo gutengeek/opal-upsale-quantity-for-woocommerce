@@ -32,25 +32,8 @@ $fb_class = '';
         <div class="ouqw_wrap_tabcontent">
             <div id="ouqw_display_settings" class="ouqw_tabcontent">
                 <div class="options_group">
-                    <h3><?php esc_html_e('Settings', 'opal-upsale-quantity-for-woocommerce') ?></h3>
+                    <h3><?php esc_html_e('Display Sale Off', 'opal-upsale-quantity-for-woocommerce') ?></h3>
                     <ul>
-                        <li class="option_item ouqw_group_settings_mt">
-                        <?php
-                            woocommerce_wp_select(
-                                array(
-                                    'id'          => 'product_render_type',
-                                    'value'       => ouqw_get_option('product_render_type', '', $settings),
-                                    'label'       => __( 'Product show type', 'opal-upsale-quantity-for-woocommerce' ),
-                                    'options'     => array(
-                                        'badge' => __( 'Discount badge', 'opal-upsale-quantity-for-woocommerce' ),
-                                    ),
-                                    'wrapper_class' => 'ouqw_setting_form', 
-                                    'class' => 'ouqw_setting_field',
-                                    'style' => 'width:100%;margin-left:0'
-                                )
-                            );
-                        ?>
-                        </li>
                         <li class="option_item ouqw_group_settings_mt">
                         <?php
                             woocommerce_wp_select(
@@ -97,11 +80,41 @@ $fb_class = '';
                             );
                         ?>
                         </li>
+                        <li class="option_item ouqw_group_settings_mt">
+                        <?php
+                            woocommerce_wp_select(
+                                array(
+                                    'id'          => 'product_render_type',
+                                    'value'       => ouqw_get_option('product_render_type', '', $settings),
+                                    'label'       => __( 'Discount show type', 'opal-upsale-quantity-for-woocommerce' ),
+                                    'options'     => array(
+                                        'tier-line' => __( 'Tier line', 'opal-upsale-quantity-for-woocommerce' ),
+                                        'tier-table' => __( 'Tier table', 'opal-upsale-quantity-for-woocommerce' ),
+                                    ),
+                                    'wrapper_class' => 'ouqw_setting_form', 
+                                    'class' => 'ouqw_setting_field',
+                                    'style' => 'width:100%;margin-left:0'
+                                )
+                            );
+                        ?>
+                        </li>
                     </ul>
                 </div>
                 <div class="options_group">
-                    <h3><?php esc_html_e('Display Sale Off', 'opal-upsale-quantity-for-woocommerce') ?></h3>
                     <ul>
+                        <li>
+                            <?php
+                            ouqw_wp_checkbox( array( 
+                                'wrapper_class' => 'ouqw_setting_form ouqw_flex_row_reverse ouqw_flex_align_items_center', 
+                                'id' => 'show_badge',
+                                'class' => 'ouqw_setting_field',
+                                'label' => esc_html__('Show Badge', 'opal-upsale-quantity-for-woocommerce'),
+                                'value' => ouqw_get_option('show_badge', 0, $settings),
+                                'cbvalue' => 1,
+                                'checkbox_ui' => true
+                            ) );
+                            ?>
+                        </li>
                         <li>
                             <?php
                             ouqw_wp_checkbox( array( 

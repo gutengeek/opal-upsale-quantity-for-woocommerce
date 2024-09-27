@@ -5,8 +5,7 @@
  * @uses raw_price
  * @uses range_data
  * @uses discount_type_text
- * @uses badge_title
- * @uses badge_text
+ * @uses product_type
 */
 
 if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly   
@@ -18,54 +17,15 @@ global $product;
     <div class="ouqw-dropdown-tiers">
         <div class="wrapper-tier-action">
             <div class="tier-value">1</div>
-            <div class="tier-table" style="display: none;">
-                <div class="ouqw-wrap ouqw-wrap-<?php echo esc_attr($product->get_id()); ?>" data-id="<?php echo esc_attr($product->get_id()); ?>">
-                    <div class="ouqw-table ouqw-table-<?php echo esc_attr($product->get_id()); ?>">
-                        <div class="ouqw-row ouqw-head">
-                            <div class="ouqw-row-qty"><?php esc_html_e('Quantity', 'opal-upsale-quantity-for-woocommerce') ?></div>
-                            <div class="ouqw-row-price"><?php esc_html_e('Price', 'opal-upsale-quantity-for-woocommerce') ?></div>
-                        </div>
-                        <?php
-                        $i = 0;
-                        foreach ($range_data as $tier) {
-                            if (empty($tier['rule_range_number']) || empty($tier['rule_discount_percent'])) {
-                                continue;
-                            }
-                            $tier_number = absint( $tier['rule_range_number'] );
-                            $discount_percent = floatval( $tier['rule_discount_percent'] );
-
-                            $discount_price = $raw_price - ($raw_price * $discount_percent / 100);
-                            ?>
-                            <div class="ouqw-row ouqw-item ouqw-item-<?php echo esc_attr($i) ?>" data-discount_percent="<?php echo esc_attr($discount_percent) ?>" data-qty="<?php echo esc_attr($tier_number) ?>">
-                                <div class="ouqw-item-qty"><?php echo esc_html($tier_number) ?>+ <strong><?php echo esc_html($discount_type_text) ?></strong></div>
-                                <div class="ouqw-item-price">
-                                    <span class="ouqw-item-price-val">
-                                        <?php ouqw_print_price($discount_price) ?>
-                                    </span>
-                                    <span class="ouqw-item-text"><?php esc_html_e('each product', 'opal-upsale-quantity-for-woocommerce') ?></span>
-                                </div>
-                                <div class="ouqw-item-discount"><?php 
-                                /* translators: %s: Discount percent. */ 
-                                printf(esc_html__('Save %s%%', 'opal-upsale-quantity-for-woocommerce'), esc_html($discount_percent)) 
-                                ?></div>
-                            </div>
-                            <?php
-                            $i++;
-                        }
-                        ?>
-                        <div class="ouqw-row ouqw-foot ouqw-summary">
-                            <div class="ouqw-summary-info">
-                                <span class="ouqw-summary-qty">1</span> ×
-                                <span class="ouqw-summary-name"><?php echo esc_html(get_the_title()) ?></span>
-                            </div>
-                            <div class="ouqw-summary-total" data-raw_price="<?php echo esc_attr($raw_price) ?>">
-                                <?php ouqw_print_price($raw_price) ?>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- /ouqw-table -->
-                </div>
-            </div>
+            <?php
+            OUQW_Frontend::view('tier-table', [
+                'raw_price' => $raw_price,
+                'range_data' => $range_data,
+                'discount_type_text' => $discount_type_text,
+                'product_type' => $product_type,
+                'show' => false
+            ]);
+            ?>
         </div>
     </div>
 </div>
